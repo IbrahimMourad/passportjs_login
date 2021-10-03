@@ -7,8 +7,8 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const app = express();
 const User = require("./models/user");
+const app = express();
 //----------------------------------------- END OF IMPORTS---------------------------------------------------
 mongoose.connect(
   "mongodb+srv://passport:admin@cluster0.ikppq.mongodb.net/passportJs-practice?retryWrites=true&w=majority",
