@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+
 import Input from "./components/input";
 
 import "./App.css";
@@ -9,17 +11,35 @@ function App() {
   const [loginUsername, setLoginUsername] = useState();
   const [loginPassword, setLoginPassword] = useState();
 
-  useEffect(() => {
-    console.log(registerUsername);
-  }, [registerUsername]);
+  const register = async () => {
+    const res = await axios.post(
+      "http://localhost:4000/register",
+      { username: registerUsername, password: registerPassword },
+      { withCredentials: true }
+    );
+    console.log(res);
+  };
+  const login = async () => {
+    const res = await axios.post(
+      "http://localhost:4000/login",
+      { username: loginUsername, password: loginPassword },
+      { withCredentials: true }
+    );
+    console.log(res);
+  };
+  const getUser = async () => {
+    const res = await axios.get("http://localhost:4000/getuser", {
+      withCredentials: true,
+    });
+    console.log(res);
+  };
 
-  const register = () => {};
-  const login = () => {};
-  const getUser = () => {};
+  console.log("user", loginUsername);
+  console.log("pass", loginPassword);
 
   return (
     <div className="App">
-      <div className="register">
+      <form className="register">
         <h1>Register</h1>
         <Input
           type="text"
@@ -32,9 +52,14 @@ function App() {
           handleOnChange={(e) => setRegisterPassword(e.target.value)}
         />
         <button onClick={register}>Submit</button>
-      </div>
+      </form>
 
-      <div className="login">
+      <form
+        className="login"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <h1>Login</h1>
         <Input
           type="username"
@@ -47,7 +72,7 @@ function App() {
           handleOnChange={(e) => setLoginPassword(e.target.value)}
         />
         <button onClick={login}>Submit</button>
-      </div>
+      </form>
       <div className="getUser">
         <h1>Get User</h1>
         <button onClick={getUser}>Get User</button>
