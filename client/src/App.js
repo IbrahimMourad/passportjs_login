@@ -17,7 +17,7 @@ function App() {
       { username: registerUsername, password: registerPassword },
       { withCredentials: true }
     );
-    console.log(res);
+    console.log(res.data);
   };
   const login = async () => {
     const res = await axios.post(
@@ -34,12 +34,14 @@ function App() {
     console.log(res);
   };
 
-  console.log("user", loginUsername);
-  console.log("pass", loginPassword);
-
   return (
     <div className="App">
-      <form className="register">
+      <form
+        className="register"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <h1>Register</h1>
         <Input
           type="text"
